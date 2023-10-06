@@ -1,0 +1,7 @@
+username: 'Mila88'
+password: '5c36b9ebe1'
+url_login: 'https://test-stand.gb.ru/gateway/login'
+url_posts: 'https://test-stand.gb.ru/api/posts'
+title: 'New title'
+description: 'New description'
+content: 'content content content'
