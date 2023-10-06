@@ -1,36 +1,31 @@
-# Написать тест с использованием pytest и requests, в котором:
-
-# Адрес сайта, имя пользователя и пароль хранятся в config.yaml
-
-# conftest.py содержит фикстуру авторизации по адресу
-#  https://test-stand.gb.ru/gateway/login с передачей параметров “username" и
-# "password" и возвращающей токен авторизации
-
-# Тест с использованием DDT проверяет наличие поста
-# с определенным заголовком в списке постов другого пользователя, для этого выполняется get
-# запрос по адресу https://test-stand.gb.ru/api/posts c хедером,
-# содержащим токен авторизации в параметре "X-Auth-Token".
-# Для отображения постов другого пользователя передается "owner": "notMe".
-
-
-import requests as requests
+from rest_api import get
+import pytest
 import yaml
+import requests
 
 with open('config.yaml', 'r') as f:
     conf = yaml.safe_load(f)
 
-def get_token():
-    response = requests.post(url=conf['url_login'],
-                              data={'username': conf['username'],
-                                     'password': conf['password']})
-    return response.json()['token']
-def get(token):
-    response = requests.get(conf["url_posts"],
-                        headers={"X-Auth-Token": token},
-                        params={"owner": "notMe"})
-    return response.json()
+S = requests.Session()
+
+def test_step1(get_token):
+    result = get(get_token)
+    lst = result['data']
+    lst_id = [el["id"] for el in lst]
+    assert 81988 in lst_id
+
+def test_step2(get_token):
+    assert (S.post(url=conf['url_posts'], headers={'X-Auth-Token': get_token},
+                 data={'title' : conf['title'],
+                         'description': conf['description'],
+                         'content': conf['content']}).json())
+
+def test_step3(get_token):
+    result = get(get_token)
+    lst = result['data']
+    lst_id = [el["description"] for el in lst]
+    assert 'New description' in lst_id
+
 
 if __name__ == '__main__':
-    temp = get_token()
-    print(get(temp))
-
+    pytest.main(['-v'])
