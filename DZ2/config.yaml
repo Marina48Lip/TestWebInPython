@@ -1,0 +1,9 @@
+username: 'Mila88'
+password: '5c36b9ebe1'
+title: 'Test selenium'
+description: 'New description test selenium '
+content: 'selenium selenium selenium'
+address: 'https://test-stand.gb.ru/'
+driver_path: 'C:\Users\Administrator\PycharmProjects\pythonProject\less2\chromedriver.exe'
+sleep_time: 2
+
