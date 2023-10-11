@@ -1,0 +1,6 @@
+username: 'Mila88'
+password: '5c36b9ebe1'
+address: 'https://test-stand.gb.ru/'
+driver_path: 'C:\Users\Administrator\PycharmProjects\pythonProject\less2\chromedriver.exe'
+sleep_time: 2
+
