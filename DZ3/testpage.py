@@ -34,5 +34,5 @@ class OperationsHelper(BasePage):
 
     def alert(self):
         alert = self.driver.switch_to.alert
-        return alert.text()
+        return alert.text
 
